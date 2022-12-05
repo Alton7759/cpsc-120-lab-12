@@ -23,8 +23,45 @@ int main(int argc, char* argv[]) {
   // that happens in the main function.
   // Do not change or remove the line below.
   Magick::InitializeMagick(*argv);
+  std::vector<std::string> args{argv, argv + argc};
   // TODO: convert the command line arguments to a
   // std::vector of std::strings.
+  if (args.size() < 2) {
+    std::cout << "Please provide a path to a file.\n";
+    return 1;
+  }
+  std::string output_file_name{args.at(1)};
+  std::string image_format{".gif"};
+  if (!HasMatchingFileExtension(output_file_name, image_format)) {
+    std::cout << output_file_name << " is missing the required file extension .gif.\n";
+    return 1;
+  }
+  std::vector<double> sine_lookup_table = BuildSineLookupTable(kImageWidth);
+  Magick::ColorRGB white(1, 1, 1);
+  std::vector<Magick::Image> images;
+  double bule_step = M_PI / double(kNumberOfImages);
+  int row_col_step = kImageWidth / kNumberOfImages;
+  for (int current_image = 0; current_image < kNumberOfImages;
+       current_image++) {
+    Magick::Image image =
+        Magick::Image(Magick::Geometry(kImageWidth, kImageHeight), white);
+    std::cerr << "Image " << current_image + 1 << "...";
+    double blue = sin(bule_step * current_image);
+
+    for (int column = 0; column < image.columns(); column++) {
+      for (int row = 0; row < image.rows(); row++) {
+        int current_step = current_image * row_col_step;
+        double red = sine_lookup_table.at((column + current_step) % kImageWidth);
+        double green =
+            sine_lookup_table.at((row + current_step) % kImageHeight);
+        Magick::ColorRGB color(red, green, blue);
+        image.pixelColor(column, row, color);
+      }
+    }
+    images.push_back(image);
+    std::cerr << "completed.\n";
+  }
+  Magick::writeImages(images.begin(), images.end(), output_file_name);
   // TODO: Check to make sure you have enough arguments. If you have
   // too few, print an error message and exit.
   // TODO: Declare a std::string variable named output_file_name.
@@ -55,34 +92,6 @@ int main(int argc, char* argv[]) {
   // TODO: Declare an int variable named row_col_step and initialize it to
   // kImageWidth / kNumberOfImages.
 
-  for (int current_image = 0; current_image < kNumberOfImages;
-       current_image++) {
-    // TODO: Declare a Magick::Image variable named image. Initialize it to be
-    // kImageWidth by kImageHeight and fill it with white. See Lab 10 for an
-    // example.
-    std::cerr << "Image " << current_image + 1 << "...";
-    // TODO: Declare a double named blue and assign it the blue value needed for
-    // the current image. This value is the sine of blue_step * current_image
-    // TODO: Create an inner and outer loop to visit each pixel.
-    // For example:
-    //for (int column = 0; column < image.columns(); column++) {
-      //for (int row = 0; row < image.rows(); row++) {
-        // TODO: Declare an int variable named current_step and initliaze it to 
-        // current_image * row_col_step
-        // TODO: Declare a double variable named red. Initialize it to the
-        // correct value from the sine_lookup_table.
-        // TODO: Declare a double variable named green. Initialize it to the
-        // correct value from the sine_lookup_table.
-        // TODO: Declare a Magick::ColorRGB variable named color and initialize
-        // it with the values from the red, green, blue variables.
-        // TODO: Set the current pixel color in the image to the new color.
-        // For example:
-        // image.pixelColor(column, row, color);
-    //   }
-    // }
-    // TODO: Use push_back to add the current image to the vector images.
-    std::cerr << "completed.\n";
-  }
   // TODO: Write the images to an output file using Magick::writeImages()
   // For example:
   // Magick::writeImages(images.begin(), images.end(), output_file_name);

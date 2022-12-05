@@ -7,14 +7,18 @@
 
 bool HasMatchingFileExtension(const std::string& file_name,
                               const std::string& extension) {
-  // TODO: Copy and paste the body of the function from Lab 10.
-  return false;
+  return file_name.size() >= extension.size() &&
+         (file_name.compare(file_name.size() - extension.size(),
+                            extension.size(), extension) == 0);
 }
 
 std::vector<double> BuildSineLookupTable(int image_width) {
   std::vector<double> lookup_table;
-  // TODO: build the lookup table and return it to the caller
-  // divide 180 degrees (M_PI) over number of columns or rows
-  // we work in radians because the math library works in radians.
+  double radian_step = M_PI / double(image_width);
+  for (int column = 0; column < image_width; column++) {
+    double sin_of = sin(radian_step * column);
+    lookup_table.push_back(sin_of);
+  }
+
   return lookup_table;
 }
