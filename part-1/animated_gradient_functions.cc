@@ -1,4 +1,4 @@
-/// Wilfredo Rodas
+// Wilfredo Rodas
 // CPSC 120-01
 // 2022-12-05
 // rodaswilfredo24@csu.fullerton.edu
