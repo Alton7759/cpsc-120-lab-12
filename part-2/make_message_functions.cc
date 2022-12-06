@@ -1,4 +1,14 @@
-// TODO: Add your header
+// Wilfredo Rodas
+// CPSC 120-01
+// 2022-12-05
+// rodaswilfredo24@csu.fullerton.edu
+// @rodasw24
+//
+// Lab 12-02
+// Partners: @AHan003, @alton7759
+//
+// Uses random number generator function
+//
 
 #include "make_message_functions.h"
 
@@ -8,40 +18,23 @@ bool HasMatchingFileExtension(const std::string& file_name,
                               const std::string& extension) {
   return file_name.size() >= extension.size() &&
          (file_name.compare(file_name.size() - extension.size(),
-                            extension.size(), extension) == 0);.
+                            extension.size(), extension) == 0);
   return false;
 }
 
-// Secret global variable to make the randome number generator
-// predictable
 std::seed_seq rng_seed{1, 2, 3, 4, 5};
 
-// Secret global variable that is used by RandomDouble_01()
 RandomNumberGenerator rng_01{0, 1, rng_seed};
 
-// Secret global variable that is used by RandomDouble_11()
 RandomNumberGenerator rng_11{-1, 1, rng_seed};
 
-// Secret global variable that is used by CoinFlip()
 RandomNumberGenerator rng_coin_flip{-1, 1, rng_seed};
 
-// Returns a random double between o and 1
 double RandomDouble01() {
-  
-  // TODO: Using rng_01, call next() and return the next random number.
-  return rng_01.next();;
+  return rng_01.next();
+  ;
 }
 
-// Returns a random double between -1 and 1
-double RandomDouble11() {
-  // TODO: Using rng_11, call next() and return the next random number.
-  return rng_11.next();
-}
+double RandomDouble11() { return rng_11.next(); }
 
-/// Return a True or False depending on a random value.
-/// Generates a random number and then decides to return True or False
-bool CoinFlip() {
-  // TODO: Using rng_coin_flip, call next() and return true if the randome
-  // number is greater than 0.0 and false otherwise.
-  return rng_coin_flip.next() > 0.0;
-}
+bool CoinFlip() { return rng_coin_flip.next() > 0.0; }

@@ -1,5 +1,14 @@
-// TODO: Add your header
-
+// Wilfredo Rodas
+// CPSC 120-01
+// 2022-12-05
+// rodaswilfredo24@csu.fullerton.edu
+// @rodasw24
+//
+// Lab 12-02
+// Partners: @AHan003, @alton7759
+//
+// Create a message function to create an animated image
+//
 /* Do not edit below this line. */
 /* Do not edit below this line. */
 /* Do not edit below this line. */
