@@ -4,7 +4,7 @@
 // rodaswilfredo24@csu.fullerton.edu
 // @rodasw24
 //
-// Lab 12-02
+// Lab 12-01
 // Partners: @AHan003, @alton7759
 //
 // Program that makes an animation.
